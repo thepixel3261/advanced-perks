@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import de.fabilucius.advancedperks.compatabilities.bukkit.ChangeWorldPerkCompatability;
 import de.fabilucius.advancedperks.compatabilities.bukkit.PotionDesyncCompatability;
 import de.fabilucius.advancedperks.compatabilities.luckperms.LuckPermsCompatibility;
+import de.fabilucius.advancedperks.compatabilities.plotSquared.PlotSquaredCompatibility;
 import de.fabilucius.advancedperks.core.logging.APLogger;
 import org.bukkit.Bukkit;
 
@@ -23,6 +24,9 @@ public class CompatibilityController {
         this.logger.info("Registering the compatibility class %s.".formatted(this.injector.getInstance(ChangeWorldPerkCompatability.class).getClass().getName()));
         if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
             this.logger.info("Registering the compatibility class %s.".formatted(this.injector.getInstance(LuckPermsCompatibility.class).getClass().getName()));
+        }
+        if (Bukkit.getPluginManager().isPluginEnabled("PlotSquared")) {
+            this.logger.info("Registering the compatibility class %s.".formatted(this.injector.getInstance(PlotSquaredCompatibility.class).getClass().getName()));
         }
     }
 

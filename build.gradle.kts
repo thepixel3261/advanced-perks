@@ -1,8 +1,6 @@
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow").version("7.1.2")
-    id("checkstyle")
-    id("name.remal.sonarlint").version("3.3.17")
+    id("com.gradleup.shadow") version "9.4.1"
     kotlin("jvm")
 }
 
@@ -36,11 +34,12 @@ repositories {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 dependencies {
+    /*
     testImplementation("org.mockito", "mockito-inline", Version.MOCKITO)
     testImplementation("org.mockito", "mockito-junit-jupiter", Version.MOCKITO)
     testImplementation("org.junit.jupiter", "junit-jupiter", Version.JUNIT)
@@ -50,6 +49,7 @@ dependencies {
         exclude(group = "org.yaml", module = "snakeyaml")
     }
     testImplementation("io.kotest", "kotest-assertions-core-jvm", "5.9.1")
+     */
 
     implementation("org.spigotmc", "spigot-api", Version.SPIGOT)
     implementation("com.google.inject", "guice", Version.GUICE)
@@ -63,13 +63,11 @@ dependencies {
     implementation("net.luckperms", "api", Version.LUCK_PERMS)
     implementation("com.github.cryptomorin", "XSeries", Version.X_SERIES)
     implementation(kotlin("stdlib-jdk8"))
+    compileOnly("com.intellectualsites.plotsquared:plotsquared-core")
+    implementation(platform("com.intellectualsites.bom:bom-newest:1.56"))
 }
 
 tasks {
-    test {
-        useJUnitPlatform()
-    }
-
     processResources {
         filesMatching("**/plugin.yml") {
             expand(project.properties)
@@ -94,35 +92,6 @@ tasks {
         relocate("com.google.inject", "$externalPackage.com.google.inject")
         relocate("jakarta.inject", "$externalPackage.jakarta.inject")
         relocate("org.aopalliance", "$externalPackage.org.aopalliance")
-        archiveFileName.set("${project.name}-$version.jar")
+        archiveFileName.set("${project.name}-$version-MODIFIED.jar")
     }
-
-    sonarLint {
-        rules {
-            disable(
-                "java:S3010",
-                "java:S1192", //TODO enable that rule again
-                "java:S1168",
-                "java:S110",
-                "java:S3655",
-                "java:S1141",
-                "java:S3011",
-                "java:S6355",
-                "java:S1123",
-                "java:S2629",
-                "java:S2142",
-                "java:S4144",
-                "java:S107", //activate in the future (too many parameter in constructor)
-                "java:S3358",
-                "java:S899",
-                "java:S1135",
-                "java:S1133",
-                "java:S5778",
-                "java:S1068"
-            )
-        }
-        val ignoreFiles = listOf("**Metrics.java", "**InventoryUpdate.java", "**ReflectionUtils.java")
-        ignoredPaths.addAll(ignoreFiles)
-    }
-
 }

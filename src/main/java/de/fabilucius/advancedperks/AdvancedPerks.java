@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 
 public class AdvancedPerks extends JavaPlugin {
+    public static AdvancedPerks instance;
 
     @Inject
     private APLogger logger;
@@ -21,6 +22,7 @@ public class AdvancedPerks extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         Injector injectorInstance = Guice.createInjector(
                 new ConfigurationModule(),
                 new PrimaryModule(this)

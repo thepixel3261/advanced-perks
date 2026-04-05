@@ -6,5 +6,6 @@ softdepend:
   - PlaceholderAPI
   - Vault
   - LuckPerms
+  - PlotSquared
 commands:
   perks:
